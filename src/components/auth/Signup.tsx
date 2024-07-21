@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { signup } from "@/app/actions/user";
+import toast, { Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const router = useRouter();
@@ -13,10 +14,13 @@ const Signup = () => {
 
   const handleClick = async () => {
     console.log(userCred);
-    const resp = await axios.post("/api/user", userCred);
-    const data = await resp.data;
-    console.log(data);
-    // router.push("/");
+    const resp = await signup(userCred.email, userCred.password);
+    if (resp) {
+      toast.success("signup successfull!");
+      router.push("/");
+    } else {
+      toast.error("invalid credentials");
+    }
   };
 
   return (
@@ -40,6 +44,7 @@ const Signup = () => {
       >
         Submit
       </button>
+      <Toaster />
     </div>
   );
 };
