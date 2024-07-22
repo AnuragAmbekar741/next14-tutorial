@@ -16,3 +16,17 @@ export async function signup(email:string,password:string) {
         return false
     }
 }
+
+export async function signin(email:string,password:string) {
+    try{ 
+        const user = await client.user.findUnique({where:{
+            email:email,
+            password:password
+        }})
+        console.log(user)
+        return user
+    }catch(err){
+        return err
+    }
+    
+}
