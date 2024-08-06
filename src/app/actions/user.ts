@@ -24,7 +24,9 @@ export async function signin(email:string,password:string) {
             password:password
         }})
         console.log(user)
-        return user
+        if(user) return user
+        else return false
+        
     }catch(err){
         return err
     }
